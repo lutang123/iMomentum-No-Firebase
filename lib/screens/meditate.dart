@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Notes extends StatefulWidget {
+class Meditate extends StatefulWidget {
   @override
-  _NotesState createState() => _NotesState();
+  _MeditateState createState() => _MeditateState();
 }
 
-class _NotesState extends State<Notes> {
+class _MeditateState extends State<Meditate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

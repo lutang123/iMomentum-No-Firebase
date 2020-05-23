@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:noteapp/quote_service/fetch_quote.dart';
-import 'home.dart';
-import 'package:noteapp/weather_service/weather.dart';
+import 'package:iMomentum/network_service/quote_service/fetch_quote.dart';
+import 'package:iMomentum/screens/home_page.dart';
+import 'package:iMomentum/network_service/weather_service/weather.dart';
 
 class LoadingLocation extends StatefulWidget {
   @override

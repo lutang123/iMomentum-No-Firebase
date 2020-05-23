@@ -41,27 +41,56 @@
 ////          ),
 
 //4. no shadow bottom button
-//Align(
+//          Align(
 //            alignment: Alignment.bottomCenter,
 //            child: Padding(
 //              padding: const EdgeInsets.all(15.0),
 //              child: Row(
 //                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                children: <Widget>[
+//                  Column(
+//                    children: <Widget>[
+//                      IconButton(
+//                        icon: FaIcon(FontAwesomeIcons.stickyNote),
+//                        onPressed: () {
+//                          Navigator.push(
+//                            context,
+//                            MaterialPageRoute(
+//                              builder: (context) => Notes(),
+//                            ),
+//                          );
+//                        },
+//                        tooltip: 'Notes',
+//                      ),
+//                      Text('Notes'),
+//                    ],
+//                  ),
 //                  IconButton(
-//                    icon: FaIcon(FontAwesomeIcons.calendarAlt),
+//                    icon: FaIcon(FontAwesomeIcons.smile),
 //                    onPressed: () {
 //                      Navigator.push(
 //                        context,
 //                        MaterialPageRoute(
-//                          builder: (context) => Calender(),
+//                          builder: (context) => Meditate(),
 //                        ),
 //                      );
 //                    },
-//                    tooltip: 'Calendar',
+//                    tooltip: 'Meditate',
 //                  ),
 //                  IconButton(
-//                    icon: FaIcon(FontAwesomeIcons.home),
+//                    icon: FaIcon(FontAwesomeIcons.clock),
+//                    onPressed: () {
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(
+//                          builder: (context) => Pomodoro(),
+//                        ),
+//                      );
+//                    },
+//                    tooltip: 'Pomodoro',
+//                  ),
+//                  IconButton(
+//                    icon: FaIcon(FontAwesomeIcons.calendarAlt),
 //                    onPressed: () {
 //                      Navigator.push(
 //                        context,
@@ -70,37 +99,14 @@
 //                        ),
 //                      );
 //                    },
-//                    tooltip: 'TodoList',
-//                  ),
-//                  IconButton(
-//                    icon: FaIcon(FontAwesomeIcons.stickyNote),
-//                    onPressed: () {
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                          builder: (context) => Notes(),
-//                        ),
-//                      );
-//                    },
-//                    tooltip: 'Notes',
-//                  ),
-//                  FlatButton(
-//                    child: Text('TODO'),
-//                    onPressed: () {
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                          builder: (context) => ToDos(),
-//                        ),
-//                      );
-//                    },
+//                    tooltip: 'Todo',
 //                  ),
 //                ],
 //              ),
 //            ),
 //          ),
 
-//4. add theme data to a certain element
+//5. add theme data to a certain element
 //Theme(
 //              data: ThemeData(
 //                  canvasColor: Colors.transparent, buttonColor: Colors.white),
@@ -121,3 +127,12 @@
 //    new LengthLimitingTextInputFormatter(42),
 //  ],
 //);
+
+////      body: IndexedStack(
+////          index: _currentIndex,
+////          children: _children = [
+////            HomePage(),
+////            Calender(),
+////            Notes(),
+////            Todos(),
+////          ]),

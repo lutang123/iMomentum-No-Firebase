@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:noteapp/api_key.dart';
+import 'package:iMomentum/api_key.dart';
 
 const apiKey = APIKeys.weatherAPIKey;
 const urlFirstPart = 'https://api.openweathermap.org/data/2.5/weather';
@@ -22,24 +22,4 @@ class WeatherModel {
       throw Exception('Failed to load');
     }
   }
-
-//  String getWeatherIcon(int condition) {
-//    if (condition < 300) {
-//      return '🌩';
-//    } else if (condition < 400) {
-//      return '🌧';
-//    } else if (condition < 600) {
-//      return '☔️';
-//    } else if (condition < 700) {
-//      return '☃️';
-//    } else if (condition < 800) {
-//      return '🌫';
-//    } else if (condition == 800) {
-//      return '☀️';
-//    } else if (condition <= 804) {
-//      return '☁️';
-//    } else {
-//      return '🤷‍';
-//    }
-//  }
 }

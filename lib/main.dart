@@ -13,13 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Note',
-      theme: ThemeData.dark(),
-//      ThemeData(
-//        // This makes the visual density adapt to the platform that you run
-//        // the app on. For desktop platforms, the controls will be smaller and
-//        // closer together (more dense) than on mobile platforms.
-//        visualDensity: VisualDensity.adaptivePlatformDensity,
-//      ),
+      theme: ThemeData.dark().copyWith(
+        canvasColor: Colors.transparent,
+//        bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.black54),
+      ),
+
       home: LoadingLocation(),
 //      routes: {
 //        '/': (context) => LoadingLocation(),
