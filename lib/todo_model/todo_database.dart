@@ -15,13 +15,13 @@ class TodoDBHelper {
   String colId = 'id';
   String colTitle = 'title';
   String colDate = 'date';
-  String colStatus = 'status';
+  String colStatus = 'status'; //must have status?
 
   // Task Tables
   // Id | Title | Date | Status
   // 0     ''      ''      0
+  // 1     ''      ''      1
   // 2     ''      ''      0
-  // 3     ''      ''      0
 
   //this is a getter for our database variable
   Future<Database> get fetchMyDatabase async {
@@ -32,16 +32,14 @@ class TodoDBHelper {
   }
 
   //1. Add the dependencies
-  //2. Define the Dog data model
-  //3. Open the database
-  //4. Create the dogs table
+  //2. Define the data model
+  //3. Init/openDatabase the database
+  //4. Create the table
   Future<Database> _initDb() async {
     //we create a dir from path_provider method
-
     Directory dir = await getApplicationDocumentsDirectory();
     //we go to our current path and then make a new file called todo_list.db
     String path = dir.path + '/todo_list.db';
-//    String path = join(await getDatabasesPath(), 'todo_list.db');
     //openDatabase
     final todoListDb =
         //we use sqflite package function openDatabase
@@ -56,8 +54,8 @@ class TodoDBHelper {
     );
   }
 
-  // 6. Retrieve the list of Dogs
-  //This is to get all the rows from sql table and
+  // 5. Retrieve the list of object
+  //This is to get all the rows from sql table and then covert to objects
   Future<List<TodoModel>> getTodoList() async {
     Database db = await fetchMyDatabase;
     final List<Map<String, dynamic>> mapsList = await db.query(tasksTable);
@@ -70,42 +68,34 @@ class TodoDBHelper {
     return todoList;
   }
 
-//  //5. Insert ??
-//  Future<TodoModel> insertTodo(TodoModel todo) async {
+//  //return todos or return int?
+//  Future<TodoModel> insertTodo(TodoModel todos) async {
 //    Database db = await fetchMyDatabase;
 //    //Future<int> insert(String table, Map<String, dynamic> values)
-//    todo.id = await db.insert(
+//    todos.id = await db.insert(
 //      tasksTable,
-//      todo.toMap(),
-//      //// Insert the Dog into the correct table. You might also specify the
-//      //  // `conflictAlgorithm` to use in case the same dog is inserted twice.
-//      //  // In this case, replace any previous data.
+//      todos.toMap(),
 //      conflictAlgorithm: ConflictAlgorithm.replace,
 //    );
-//    return todo;
+//    return todos;
 //  }
 
-  //5. Insert a Dog into the database
+  //6. Insert a Dog into the database
   Future<int> insertTodo(TodoModel task) async {
     Database db = await fetchMyDatabase;
     //Future<int> insert(String table, Map<String, dynamic> values)
     final int result = await db.insert(
       tasksTable,
       task.toMap(),
-      //// Insert the Dog into the correct table. You might also specify the
-      //  // `conflictAlgorithm` to use in case the same dog is inserted twice.
-      //  // In this case, replace any previous data.
+      //Insert the Dog into the correct table. You might also specify the
+      //`conflictAlgorithm` to use in case the same dog is inserted twice.
+      // In this case, replace any previous data.
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return result;
   }
 
-//  Future<Todo> insert(Todo todo) async {
-//    todo.id = await db.insert(tableTodo, todo.toMap());
-//    return todo;
-//  }
-
-  //update
+  //7. update
   Future<int> updateTodo(TodoModel todo) async {
     Database db = await fetchMyDatabase;
     final int result = await db.update(
@@ -118,7 +108,7 @@ class TodoDBHelper {
     return result;
   }
 
-  //delete
+  //8.delete
   Future<int> deleteTask(int id) async {
     Database db = await fetchMyDatabase;
     final int result = await db.delete(
@@ -129,7 +119,7 @@ class TodoDBHelper {
     return result;
   }
 
-  //close connection
+  //close connection, not use?
   Future closeDBConnection() async {
     Database db = await fetchMyDatabase;
     db.close();

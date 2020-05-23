@@ -14,7 +14,6 @@ class AddTodoScreen extends StatefulWidget {
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
   String _title;
-//  DateTime _date;
   DateTime _date = DateTime.now();
   TextEditingController _dateController = TextEditingController();
   final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
@@ -40,7 +39,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   _handleDatePicker() async {
     //Shows a dialog containing a Material Design _date picker.
     //Type: Future<DateTime> Function
-//    _date = await showDatePicker(
     final DateTime date = await showDatePicker(
       context: context,
       initialDate: _date, //we set as DateTime _date = DateTime.now();
@@ -57,71 +55,78 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white12,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15.0),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white12,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                widget.todo == null ? 'Add Task' : 'Update Task',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 30, color: Colors.white70),
+              ),
+              TextField(
+                readOnly: true,
+                textAlign: TextAlign.center,
+                controller: _dateController,
+                onTap: _handleDatePicker,
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+              ),
+              TextField(
+                autofocus: true,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  _title = value;
+                },
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                  hintText: 'Enter your todo here',
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+              ),
+              FlatButton(
+                color: Colors.white10,
+                onPressed: () {
+                  TodoModel todo = TodoModel(title: _title, date: _date);
+                  if (widget.todo == null) {
+                    // Insert the task to our user's database
+                    //we set status as 0 meaning we are editing the task, it's incomplete
+                    todo.status = 0;
+                    TodoDBHelper.instance.insertTodo(todo);
+                  } else {
+                    // Update the task
+                    todo.id = widget.todo.id;
+                    todo.status = widget.todo.status;
+                    TodoDBHelper.instance.updateTodo(todo);
+                  }
+                  //updateTaskList is the function we passed, we call it here
+                  widget.updateTodoList();
+                  Navigator.pop(context);
+                },
+                child: Text(widget.todo == null ? 'Add' : 'Update'),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            widget.todo == null ? 'Add Task' : 'Update Task',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30, color: Colors.white70),
-          ),
-          TextField(
-            readOnly: true,
-            textAlign: TextAlign.center,
-            controller: _dateController,
-            onTap: _handleDatePicker,
-            cursorColor: Colors.white,
-            decoration: InputDecoration(
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-            ),
-          ),
-          TextField(
-            autofocus: true,
-            textAlign: TextAlign.center,
-            onChanged: (value) {
-              _title = value;
-            },
-            cursorColor: Colors.white,
-            decoration: InputDecoration(
-              hintText: 'Enter your todo here',
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-            ),
-          ),
-          FlatButton(
-            color: Colors.white10,
-            onPressed: () {
-              TodoModel todo = TodoModel(title: _title, date: _date);
-              if (widget.todo == null) {
-                // Insert the task to our user's database
-                //we set status as 0 meaning we are editing the task, it's incomplete
-                todo.status = 0;
-                TodoDBHelper.instance.insertTodo(todo);
-              } else {
-                // Update the task
-                todo.id = widget.todo.id;
-                todo.status = widget.todo.status;
-                TodoDBHelper.instance.updateTodo(todo);
-              }
-              //updateTaskList is the function we passed, we call it here
-              widget.updateTodoList();
-              Navigator.pop(context);
-            },
-            child: Text(widget.todo == null ? 'Add' : 'Update'),
-          ),
-        ],
       ),
     );
   }

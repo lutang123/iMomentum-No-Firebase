@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:iMomentum/screens/todo_card.dart';
 import 'package:iMomentum/todo_model/todo_database.dart';
 import 'package:iMomentum/todo_model/todo_model.dart';
-//import 'package:noteapp/todo_widgets/todo_list.dart';
-import 'package:intl/intl.dart';
-
 import 'add_todo.dart';
+import 'package:iMomentum/constants.dart';
 
 //https://image-color-picker.com/
 
@@ -14,15 +13,13 @@ class Todo extends StatefulWidget {
 }
 
 class _TodoState extends State<Todo> {
+  //start with a list, type is Future, make it =[]? or not??
   Future<List<TodoModel>> _todoList;
-  final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
-
-  bool fabVisible = true;
 
   @override
   void initState() {
     super.initState();
-    //because this function returns a future, we need to wrap our ViewList to a FutureBuilder
+    //because this function returns a future, we need wrap our ViewList to a FutureBuilder
     _updateTodoList();
   }
 
@@ -34,72 +31,58 @@ class _TodoState extends State<Todo> {
     });
   }
 
-  void showFab(bool value) {
+  bool fabVisible = true;
+//  void showFab(bool value) {
+//    setState(() {
+//      fabVisible = value;
+//    });
+//  }
+  void toggleFab() {
     setState(() {
-      fabVisible = value;
+      fabVisible = !fabVisible;
     });
   }
 
-  Widget _buildTodo(TodoModel todo) {
-    return Card(
-      color: Colors.white10,
-      child: ListTile(
-          title: Text(
-            todo.title,
-            style: TextStyle(
-              fontSize: 25.0,
-              decoration: todo.status == 0 ? null : TextDecoration.lineThrough,
-            ),
-          ),
-          subtitle: Text(
-            '${_dateFormatter.format(todo.date)}',
-            style: TextStyle(
-              fontSize: 15.0,
-              decoration: todo.status == 0 ? null : TextDecoration.lineThrough,
-            ),
-          ),
-          trailing: Checkbox(
-            activeColor: Color(0xff02abd4),
-            value: todo.status == 1 ? true : false,
-            onChanged: (newValue) {
-              todo.status = newValue ? 1 : 0; //if value is true, status is 1
-              //not using setState but each task has an status, and when
-              //click, we update the task by id, because it's status changed
-              TodoDBHelper.instance.updateTodo(todo);
-              //we also need to update the task list, this function has
-              // setState()
-              _updateTodoList();
-            },
-          ),
-          onLongPress: () {
-            TodoDBHelper.instance.deleteTask(todo.id);
-            _updateTodoList();
-            final deleteSnackBar = SnackBar(
-              backgroundColor: Colors.white12,
-              content: Text('removed your todo'),
-            );
-            Scaffold.of(context).showSnackBar(deleteSnackBar);
-          },
-          onTap: () {
-            var bottomSheetController = showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) => SingleChildScrollView(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15.0),
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: AddTodoScreen(
-                      updateTodoList: _updateTodoList, todo: todo),
-                ),
-              ),
-            );
-            showFab(false);
-            bottomSheetController.then((value) {
-              showFab(true);
-            });
-          }),
+  void _onChangedCallBack(bool newValue, TodoModel todo) {
+    todo.status = newValue ? 1 : 0; //if value is true, status is 1
+    //not using setState but each task has an status, and when
+    //click, we update the task by id, because it's status changed
+    TodoDBHelper.instance.updateTodo(todo);
+    //we need to update the task list, this function already has setState()
+    _updateTodoList();
+  }
+
+  void _onLongPressCallBack(TodoModel todo) {
+    TodoDBHelper.instance.deleteTask(todo.id);
+    //we need to update the task list, this function already has setState()
+    _updateTodoList();
+    //better to show SnackBar or not?
+    final deleteSnackBar = SnackBar(
+      backgroundColor: Colors.white12,
+      content: Text('removed your todo'),
     );
+    Scaffold.of(context).showSnackBar(deleteSnackBar);
+  }
+
+  void _onTapCallBack(TodoModel todo) {
+    var bottomSheetController = showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) =>
+          AddTodoScreen(updateTodoList: _updateTodoList, todo: todo),
+    );
+    toggleFab();
+    bottomSheetController.then((value) => toggleFab());
+  }
+
+  void _fabCallBack() {
+    var bottomSheetController = showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => AddTodoScreen(updateTodoList: _updateTodoList),
+    );
+    toggleFab();
+    bottomSheetController.then((value) => toggleFab());
   }
 
   @override
@@ -108,7 +91,7 @@ class _TodoState extends State<Todo> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/todo_image.jpg'),
+            image: AssetImage(Constants.todoImage),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.white.withOpacity(0.8), BlendMode.dstATop),
@@ -154,12 +137,9 @@ class _TodoState extends State<Todo> {
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(horizontal: 15.0),
-//                    padding: EdgeInsets.symmetric(horizontal: 30.0),
                   decoration: BoxDecoration(
                     color: Colors.white24,
                     borderRadius: BorderRadius.all(Radius.circular(25.0)),
-//                        topLeft: Radius.circular(20.0),
-//                        topRight: Radius.circular(20.0),
                   ),
                   child: FutureBuilder(
                     future: _todoList,
@@ -184,10 +164,14 @@ class _TodoState extends State<Todo> {
                                   ),
                                 );
                               }
-                              return _buildTodo(snapshot.data[index - 1]);
+                              return TodoCard(
+                                todo: snapshot.data[index - 1],
+                                onChangedCallBack: _onChangedCallBack,
+                                onLongPressCallBack: _onLongPressCallBack,
+                                onTapCallBack: _onTapCallBack,
+                              );
                             });
                       }
-
                       return Padding(
                         padding: const EdgeInsets.only(
                             left: 15.0, right: 15, top: 30),
@@ -220,24 +204,7 @@ class _TodoState extends State<Todo> {
                   color: Colors.white70,
                   size: 30,
                 ),
-                onPressed: () {
-                  var bottomSheetController = showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) => SingleChildScrollView(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15.0),
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: AddTodoScreen(updateTodoList: _updateTodoList),
-                      ),
-                    ),
-                  );
-                  showFab(false);
-                  bottomSheetController.then((value) {
-                    showFab(true);
-                  });
-                },
+                onPressed: _fabCallBack,
               ),
             )
           : Container(),

@@ -4,34 +4,20 @@ final String columnTitle = 'title';
 final String columnDone = 'done';
 
 class TodoModel {
-  int id;
+  int id; //must have
   final String title;
   DateTime date;
-  int status; // 0 - Incomplete, 1 - Complete
-//  bool isDone;
+  int status; // 0 - Incomplete, 1 - Complete, because sql cannot store bool
 
   TodoModel({
-    this.id,
+    this.id, //must have
     this.title,
     this.date,
     this.status,
-//    this.isDone = false,
   });
-
-  //this is a named constructor
-//  TodoModel.withId({
-//    this.id,
-//    this.title,
-//    this.date,
-//  });
-
-//  void toggleDone() {
-//    isDone = !isDone;
-//  }
 
   //when we store our task object into sql database, we have to convert our task to a map
   Map<String, dynamic> toMap() {
-    //we then need to assign the keys of the map to the corresponding values
     final map = Map<String, dynamic>();
     //we then need to assign the keys of the map to the corresponding values
     if (id != null) {
@@ -42,7 +28,7 @@ class TodoModel {
     map['status'] = status;
     return map;
   }
-
+// or:
 //  Map<String, dynamic> toMap() {
 //    var map = <String, dynamic>{
 //      columnTitle: title,
