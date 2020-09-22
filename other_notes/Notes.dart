@@ -56,13 +56,13 @@
 //                          Navigator.push(
 //                            context,
 //                            MaterialPageRoute(
-//                              builder: (context) => Notes(),
+//                              builder: (context) => screens.Notes(),
 //                            ),
 //                          );
 //                        },
-//                        tooltip: 'Notes',
+//                        tooltip: 'screens.Notes',
 //                      ),
-//                      Text('Notes'),
+//                      Text('screens.Notes'),
 //                    ],
 //                  ),
 //                  IconButton(
@@ -133,6 +133,77 @@
 ////          children: _children = [
 ////            HomePage(),
 ////            Calender(),
-////            Notes(),
+////            screens.Notes(),
 ////            Todos(),
 ////          ]),
+
+// this only works with ListView
+//  RefreshIndicator(
+//  onRefresh: _updateData,
+//  child: ListView())
+
+//  Future<void> updateImage() async {
+//    try {
+//      homePageImageURL = Constants.homePageImage;
+//    } on SocketException catch (_) {}
+//  }
+
+//  article.imageURL == null
+//  ? Image.asset("images/news-placeholder.png")
+//      : Image.network(article.imageURL),
+
+//https://flutter.dev/docs/cookbook/gestures/dismissible
+//https://stackoverflow.com/questions/46528447/is-there-a-better-way-to-check-left-right-drag-in-flutter
+//                                    Dismissible(
+// Each Dismissible must contain a Key. Keys allow Flutter to
+// uniquely identify widgets.
+//type 'TodoModel' is not a subtype of type 'String'
+//                                    key: Key(snapshot.data[index - 1]),
+// Provide a function that tells the app
+// what to do after an item has been swiped away.
+//                                    onDismissed: (direction) {
+//                                      // Remove the item from the data source.
+////                                      setState(() {
+////                                        snapshot.data.removeAt(index);
+////                                      });
+////                                      TodoDBHelper.instance.deleteTask(todo.id);
+////                                      //we need to update the task list, this function already has setState()
+////                                      _updateTodoList();
+//
+//                                      // Then show a snackbar.
+//                                      Scaffold.of(context).showSnackBar(SnackBar(
+//                                          content: Text(
+//                                              "${snapshot.data[index - 1]} dismissed")));
+//                                    },
+
+//                  Padding(
+//                    padding: const EdgeInsets.all(15.0),
+//                    child: Stack(
+//                      children: <Widget>[
+//                        Row(
+//                          children: <Widget>[
+//                            IconButton(
+//                              icon: Icon(Icons.arrow_back_ios),
+//                              iconSize: 40,
+//                              onPressed: () {
+//                                Navigator.pop(context);
+//                              },
+//                            ),
+//                            Spacer(),
+//                          ],
+//                        ),
+//                        Row(
+//                          mainAxisAlignment: MainAxisAlignment.center,
+//                          children: <Widget>[
+//                            Text(
+//                              'My Todo',
+//                              style: TextStyle(
+//                                color: Colors.white,
+//                                c,
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                      ],
+//                    ),
+//                  ),
