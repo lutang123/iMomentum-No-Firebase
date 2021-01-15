@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iMomentum/screens/iTodo/todo_screen/todo_model/todo_model.dart';
+import 'package:iMomentum/screens/iTodo/todo_model/todo_model.dart';
 import 'package:intl/intl.dart';
 
 class TodoCard extends StatelessWidget {
@@ -21,19 +21,19 @@ class TodoCard extends StatelessWidget {
       color: Colors.white10,
       child: ListTile(
         title: Text(
-          todo.title,
+          todo.titleList,
           style: TextStyle(
             fontSize: 25.0,
             decoration: todo.status == 0 ? null : TextDecoration.lineThrough,
           ),
         ),
-        subtitle: Text(
-          '${_dateFormatter.format(todo.date)}',
-          style: TextStyle(
-            fontSize: 15.0,
-            decoration: todo.status == 0 ? null : TextDecoration.lineThrough,
-          ),
-        ),
+        // subtitle: Text(
+        //   '${_dateFormatter.format(todo.date)}',
+        //   style: TextStyle(
+        //     fontSize: 15.0,
+        //     decoration: todo.status == 0 ? null : TextDecoration.lineThrough,
+        //   ),
+        // ),
         trailing: Checkbox(
           activeColor: Color(0xff02abd4),
           value: todo.status == 1 ? true : false,

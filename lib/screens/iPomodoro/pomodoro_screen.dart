@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iMomentum/customized_widgets/customized_bottom_sheet.dart';
 import 'dart:async';
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:iMomentum/screens/iMeditate/constants/quotes_data.dart';
-import 'package:iMomentum/screens/iMeditate/constants/theme.dart';
 import 'package:iMomentum/screens/iMeditate/utils/extensions.dart';
-import 'package:iMomentum/screens/iMeditate/utils/utils.dart';
 import 'package:iMomentum/screens/iMeditate/widgets/countdown_circle.dart';
 
 class PomodoroScreen extends StatefulWidget {

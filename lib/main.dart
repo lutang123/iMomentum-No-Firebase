@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:iMomentum/screens/home_screen/home_screen.dart';
 import 'package:iMomentum/screens/iMeditate/constants/theme.dart';
 import 'package:iMomentum/screens/iMeditate/utils/utils.dart';
-//import 'package:iMomentum/screens/loading_screen/loading_screen.dart';
-import 'package:responsive_framework/responsive_framework.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 
 void main() {
   loadLicenses();

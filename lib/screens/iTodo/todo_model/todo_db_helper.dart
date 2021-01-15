@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:iMomentum/screens/iTodo/todo_model/todo_model.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 class TodoDBHelper {
   //Named constructor to create instance of DatabaseHelper
