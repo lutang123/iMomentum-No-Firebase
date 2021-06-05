@@ -73,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         'Event C5'
       ],
       _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
+
+      ///This is today's event!
       _selectedDay: ['Event A7', 'Event B7', 'Event C7', 'Event D7'],
       _selectedDay.add(Duration(days: 1)): [
         'Event A8',
@@ -363,6 +365,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildEventList() {
+    print('_selectedEvents: $_selectedEvents');
+    print('_events: $_events');
     return ListView(
       children: _selectedEvents
           .map((event) => Container(

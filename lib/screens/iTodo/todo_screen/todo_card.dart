@@ -21,7 +21,7 @@ class TodoCard extends StatelessWidget {
       color: Colors.white10,
       child: ListTile(
         title: Text(
-          todo.titleList,
+          todo.title,
           style: TextStyle(
             fontSize: 25.0,
             decoration: todo.status == 0 ? null : TextDecoration.lineThrough,

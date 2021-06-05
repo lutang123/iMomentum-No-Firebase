@@ -24,7 +24,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     super.initState();
     //this widget refers to the data we passed from list screen
     if (widget.todo != null) {
-      _title = widget.todo.titleList;
+      _title = widget.todo.title;
 //      _date = widget.todo.date;
     }
     //to make sure when we first come to this page the date is shown there

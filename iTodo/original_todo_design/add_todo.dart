@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iMomentum/screens/iTodo/todo_screen/todo_model/todo_db_helper.dart';
-import 'package:iMomentum/screens/iTodo/todo_screen/todo_model/todo_model.dart';
+import 'package:iMomentum/screens/iTodo/todo_model/todo_db_helper.dart';
+import 'package:iMomentum/screens/iTodo/todo_model/todo_model.dart';
 import 'package:intl/intl.dart';
 import 'package:iMomentum/customized_widgets/customized_bottom_sheet.dart';
 
@@ -25,7 +25,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     //this widget refers to the data we passed from list screen
     if (widget.todo != null) {
       _title = widget.todo.title;
-      _date = widget.todo.date;
+      // _date = widget.todo.date;
     }
     //to make sure when we first come to this page the date is shown there
     _dateController.text = _dateFormatter.format(_date);
@@ -95,7 +95,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
             FlatButton(
               color: Colors.white10,
               onPressed: () {
-                TodoModel todo = TodoModel(title: _title, date: _date);
+                TodoModel todo = TodoModel(title: _title
+                    // , date: _date
+                    );
                 if (widget.todo == null) {
                   // Insert the task to our user's database
                   //we set status as 0 meaning we are editing the task, it's incomplete

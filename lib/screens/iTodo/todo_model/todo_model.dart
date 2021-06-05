@@ -1,13 +1,13 @@
 class TodoModel {
   int id; //must have
 
-  final String titleList;
+  final String title;
 //  DateTime date;
   int status; // 0 - Incomplete, 1 - Complete, because sql cannot store bool
 
   TodoModel(
       {this.id, //must have
-      this.titleList,
+      this.title,
 //      this.date,
       this.status,
       s});
@@ -19,7 +19,7 @@ class TodoModel {
     if (id != null) {
       map['id'] = id;
     }
-    map['title'] = titleList;
+    map['title'] = title;
 //    map['date'] = date.toIso8601String();
     map['status'] = status;
     return map;
@@ -41,7 +41,7 @@ class TodoModel {
   factory TodoModel.fromMap(Map<String, dynamic> map) {
     return TodoModel(
       id: map['id'],
-      titleList: map['title'],
+      title: map['title'],
       //parse map to object
 //      date: DateTime.parse(map['date']),
       status: map['status'],
